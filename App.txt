@@ -1,0 +1,28 @@
+classdef App < redux.App
+	properties
+
+	end
+
+	methods
+		function gui = createInterface(this)
+			gui = struct();
+
+			% Open a window
+			gui.Window = redux.Component.Window.App( 'App Title' );
+
+			% Add menu
+			gui = this.addMenu(gui);
+
+			% Add components
+			gui = this.addComponents(gui);
+		end
+
+		function gui = addMenu(this, gui)
+
+		end
+
+		function gui = addComponents(this, gui)
+
+		end
+	end
+end
