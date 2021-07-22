@@ -20,16 +20,12 @@ classdef (Abstract) Listener < redux.Root
 			
 			actionName = p.Results.action.getName();
 			method = this.action2method(actionName);
-			try
-				assert(this.isMethod(method));
+			if (this.isMethod(method));
 				addlistener( ...
 					p.Results.action, ...
 					actionName, ...
 					@(source, eventdata) this.(method)(source, eventdata)...
 				);
-			catch excp
-				this.log.exception(excp);
-				% TODO: stop executing
 			end
 		end
 		

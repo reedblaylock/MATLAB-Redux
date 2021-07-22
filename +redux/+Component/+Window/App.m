@@ -14,11 +14,8 @@ classdef App < redux.Component.Window & redux.State.Listener
 		
 		function [] = delete(this)
 			delete@redux.State.Listener(this);
-			this.log.off();
 % 			clear redux.Config;
 % 			clear redux.Action.NewRegion;
-% 			delete(this.log)
-% 			clear redux.Log;
 		end
 	end
 	

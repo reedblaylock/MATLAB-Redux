@@ -1,7 +1,6 @@
 classdef (Abstract) Root < handle
 	properties (SetObservable)
-% 		log = redux.Log(true);
-		log
+
 	end	
 	
 	methods

@@ -1,4 +1,4 @@
-function newState = sampleReducer(this, varargin)
+function newState = sampleReducer(varargin)
 	p = inputParser;
 	addOptional(p, 'oldState', []);
 	addOptional(p, 'action', struct('type', ''));

@@ -21,20 +21,16 @@ classdef Listener < redux.Listener
 			parse(p, this, propertyName, state);
 			
 			% Prevent trying to call handles that have been deleted
-			try
-                if redux.Config.isOldMatlabVersion()
-                    if(isa(this, 'redux.Component') && ~ishandle(this.handle))
-                        disp(['Avoiding deleted handle ' class(this)]);
-                        return;
-                    end
-                else
-                    if(isa(this, 'redux.Component') && ~(isvalid(this.handle) && ishandle(this.handle)))
-                        disp(['Avoiding deleted handle ' class(this)]);
-                        return;
-                    end
-                end
-			catch excp
-				this.log.exception(excp);
+			if redux.Config.isOldMatlabVersion()
+				if(isa(this, 'redux.Component') && ~ishandle(this.handle))
+					disp(['Avoiding deleted handle ' class(this)]);
+					return;
+				end
+			else
+				if(isa(this, 'redux.Component') && ~(isvalid(this.handle) && ishandle(this.handle)))
+					disp(['Avoiding deleted handle ' class(this)]);
+					return;
+				end
 			end
 			
 			method = this.property2method(p.Results.propertyName);
@@ -80,6 +76,7 @@ classdef Listener < redux.Listener
 		end
 		
 		function [] = delete(this)
+% 			keyboard;
 			if(isvalid(this.listenerHandle))
 				if(this.listenerHandle.Enabled)
 					this.listenerHandle.Enabled = false;

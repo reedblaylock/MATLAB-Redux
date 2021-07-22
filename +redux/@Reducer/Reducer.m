@@ -23,16 +23,11 @@ classdef Reducer < redux.Listener & redux.State.Setter
 			parse(p, actionObj);
 			
 			actionName = p.Results.action.getName();
-			try
-				addlistener( ...
-					p.Results.action, ...
-					actionName, ...
-					@(source, eventData) this.reduce(source, eventData)...
-				);
-			catch excp
-				this.log.exception(excp);
-				% TODO: stop executing
-			end
+			addlistener( ...
+				p.Results.action, ...
+				actionName, ...
+				@(source, eventData) this.reduce(source, eventData)...
+			);
 		end
 		
 		% The main reduce function. Calls all the other reduce functions in this
@@ -52,19 +47,12 @@ classdef Reducer < redux.Listener & redux.State.Setter
 				method = reducerFcns{fcnidx};
 				methodStr = method{1};
 				methodFcn = method{2};
-				try
-					%assert(this.isMethod(method)); % Reducer functions aren't
-					%part of the Reducer class, so they'll all fail isMethod()
-					if numel(fieldnames(p.Results.eventData))
-						actionData = p.Results.eventData.data;
-						newState.(methodStr) = methodFcn(oldState.(methodStr), actionData);
-					else
-						newState.(methodStr) = methodFcn();
-					end
-					
-				catch excp
-					this.log.exception(excp);
-					% TODO: stop executing
+				
+				if numel(fieldnames(p.Results.eventData))
+					actionData = p.Results.eventData.data;
+					newState.(methodStr) = methodFcn(oldState.(methodStr), actionData);
+				else
+					newState.(methodStr) = methodFcn();
 				end
 			end
 			

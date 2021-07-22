@@ -18,8 +18,10 @@ classdef App < redux.Root & redux.State.Listener
 			addOptional(p, 'debugSetting', 0);
 			parse(p, varargin{:});
 			
-			this.log = redux.Log(p.Results.debugSetting);
-			this.log.on();
+			if(p.Results.debugSetting == 2)
+				dbstop if error
+				dbstop if warning
+			end
 		end
 		
 		function [] = run(this, packageName)
@@ -43,9 +45,6 @@ classdef App < redux.Root & redux.State.Listener
 			fields = fieldnames(this.gui);
 			for iField = 1:numel(fields)
 				obj = this.gui.(fields{iField});
-				if(isa(obj, 'redux.Root'))
-					obj.log = this.log;
-				end
 				if(isa(obj, 'redux.State.Listener'))
 					obj.registerAllMethodsToState(this.state);
 				end
@@ -54,29 +53,11 @@ classdef App < redux.Root & redux.State.Listener
 				end
 			end
 			
-			% Give all the properties of this redux.Gui a log as well
-			propertyList = properties(this);
-			for iProp = 1:numel(properties(this))
-				prop = propertyList{iProp};
-				if(isa(this.(prop), 'redux.Root'))
-					this.(prop).log = this.log;
-				end
-				if(isa(this.(prop), 'redux.Action.Factory'))
-					actionNames = fieldnames(this.(prop).actions);
-					for iAction = 1:numel(actionNames)
-						this.(prop).actions.(actionNames{iAction}).log = this.log;
-					end
-				end
-			end
-			
 			% Register redux.App as a state listener
 			this.registerAllMethodsToState(this.state);
 		end
 		
 		function [] = initializeComponent(this, obj)
-			if(isa(obj, 'redux.Root'))
-				obj.log = this.log;
-			end
 			if(isa(obj, 'redux.State.Listener'))
 				obj.registerAllMethodsToState(this.state);
 			end
