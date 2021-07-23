@@ -9,7 +9,7 @@ If you're on this page, you're probably here to install this code as a prerequis
 This program is a scaffolding for creating graphical user interfaces (GUIs) in MATLAB with a state-flow architecture inspired by <a href="https://redux.js.org/">Redux</a> (a popular JavaScript framework for uni-directional state management).
 
 MATLAB-Redux wraps up GUI rendering and state management into one system:
-- GUI creation is done with the GUI Layout Toolbox (Tordoff 2021 for <a href="https://www.mathworks.com/matlabcentral/fileexchange/47982-gui-layout-toolbox">R2014a and earlier</a>, Sampson 2021 for <a href="https://www.mathworks.com/matlabcentral/fileexchange/47982-gui-layout-toolbox">R2014b and later</a) to ensure that GUIs are flexible, resizable, and highly customizable.
+- GUI creation is done with the GUI Layout Toolbox (Tordoff 2021 for <a href="https://www.mathworks.com/matlabcentral/fileexchange/47982-gui-layout-toolbox">R2014a and earlier</a>, Sampson 2021 for <a href="https://www.mathworks.com/matlabcentral/fileexchange/47982-gui-layout-toolbox">R2014b and later</a>) to ensure that GUIs are flexible, resizable, and highly customizable.
 - The application's state is defined on the fly by a set of functions ("reducers") that respond to events from interaction with the GUI ("actions"). It's flexible, and ideally less bug-prone than applications with always-available global state
 
 ## Installation
