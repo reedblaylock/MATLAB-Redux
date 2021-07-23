@@ -26,7 +26,7 @@ That's it!
 
 ## How to use this toolbox
 
-MATLAB-Redux doesn't do much on its own. The expected use case is to use it with tools like the <a href="https://github.com/reedblaylock/VocalTract-ROI-Toolbox">VocalTract ROI Toolbox</a>.
+MATLAB-Redux doesn't do much on its own. The expected use case is to use it with tools like the <a href="https://github.com/reedblaylock/VocalTract-ROI-Toolbox">VocalTract ROI Toolbox</a>. If that's all you're doing, just download this toolbox, add it to your MATLAB path, and forget about it.
 
 If you want to use MATLAB-Redux to make your own GUI, start by looking at these files from the <a href="https://github.com/reedblaylock/VocalTract-ROI-Toolbox">VocalTract ROI Toolbox</a>:
 
