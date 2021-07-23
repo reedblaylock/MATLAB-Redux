@@ -45,46 +45,49 @@ classdef (Abstract) RangeBox < redux.Component.TextBox & redux.Action.Dispatcher
 		end
 		
 		% Make sure that the current value is within the specified range.
-		function validatedNum = validateData(this, num)
+		function num = validateData(this, num)
 			p = inputParser;
 			p.addRequired('num', @isnumeric);
 			parse(p, num);
 			
 			num = p.Results.num;
-			validatedNum = [];
+% 			validatedNum = [];
+            
+            if num < this.minValue, num = this.minValue; end
+            if num > this.maxValue, num = this.maxValue; end
 			
-			try
-				assert(~isempty(num) && ~isnan(num));
-			catch
-				% The user entered something that isn't a number. You can't fix
-				% this one, so return early.
-				this.setParameters('String', this.backupText);
-				excp = MException('InvalidInput:RangeBox:Non-numerical', 'Value must be numerical.');
-				this.log.exception(excp);
-				return;
-			end
-			
-			try
-				assert(num >= this.minValue)
-			catch
-				% The user entered a value that was too low.
-				validatedNum = this.minValue;
-				excp = MException('InvalidInput:RangeBox:ExceedsMinValue', ['The minimum value for this field is ' num2str(this.minValue) '.']);
-				this.log.exception(excp);
-			end
-			
-			try
-				assert(num <= this.maxValue)
-			catch
-				% The user entered a value that was too high.
-				validatedNum = this.maxValue;
-				excp = MException('InvalidInput:RangeBox:ExceedsMaxValue', ['The maximum value for this field is ' num2str(this.maxValue) '.']);
-				this.log.exception(excp);
-			end
-			
-			if(isempty(validatedNum))
-				validatedNum = num;
-			end
+% 			try
+% 				assert(~isempty(num) && ~isnan(num));
+% 			catch
+% 				% The user entered something that isn't a number. You can't fix
+% 				% this one, so return early.
+% 				this.setParameters('String', this.backupText);
+% 				excp = MException('InvalidInput:RangeBox:Non-numerical', 'Value must be numerical.');
+% 				this.log.exception(excp);
+% 				return;
+% 			end
+% 			
+% 			try
+% 				assert(num >= this.minValue)
+% 			catch
+% 				% The user entered a value that was too low.
+% 				validatedNum = this.minValue;
+% 				excp = MException('InvalidInput:RangeBox:ExceedsMinValue', ['The minimum value for this field is ' num2str(this.minValue) '.']);
+% 				this.log.exception(excp);
+% 			end
+% 			
+% 			try
+% 				assert(num <= this.maxValue)
+% 			catch
+% 				% The user entered a value that was too high.
+% 				validatedNum = this.maxValue;
+% 				excp = MException('InvalidInput:RangeBox:ExceedsMaxValue', ['The maximum value for this field is ' num2str(this.maxValue) '.']);
+% 				this.log.exception(excp);
+% 			end
+% 			
+% 			if(isempty(validatedNum))
+% 				validatedNum = num;
+% 			end
 		end
 	end
 	
