@@ -36,7 +36,6 @@ classdef App < redux.Root & redux.State.Listener
 			this.initializeListeners();
 			
 			set(findall(this.gui.Window.handle, 'Type', 'uicontrol'), 'Enable', 'off');
-			set(this.gui.NotificationBar.handle, 'Enable', 'on');
 		end
 		
 		function [] = initializeListeners(this)
